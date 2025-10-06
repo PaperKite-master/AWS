@@ -8,6 +8,8 @@ import SignUpPage from './pages/SignUpPage';
 import WarrantyPage from './pages/WarrantyPage';
 import ExchangePage from './pages/ExchangePage';
 import ShippingPage from './pages/ShippingPage';
+import PolicyPage from './pages/PolicyPage';
+import StaffAdminLoginPage from './pages/StaffAdminLoginPage';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
               <Route path="/bao-hanh" element={<WarrantyPage />} />
               <Route path="/doi-tra" element={<ExchangePage />} />
               <Route path="/van-chuyen" element={<ShippingPage />} />
+              <Route path="/policy" element={<PolicyPage />} />
+              <Route path="/staff-admin-login" element={<StaffAdminLoginPage />} />
             </Routes>
           </main>
           <Footer />

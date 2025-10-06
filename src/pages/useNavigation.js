@@ -14,6 +14,8 @@ export const useNavigation = () => {
     const goToHistory = () => navigate('/booking-history');
     const goToBookingCreate = () => navigate('/booking-create');
     const goToContact = () => navigate('/contact');
+    const goToPolicy = () => navigate('/policy');
+    const goToStaffAdminLogin = () => navigate('/staff-admin-login');
 
     return {
         goToHome,
@@ -26,6 +28,8 @@ export const useNavigation = () => {
         goToHospital,
         goToHistory,
         goToBookingCreate,
-        goToContact
+        goToContact,
+        goToPolicy,
+        goToStaffAdminLogin
     };
 }; 
