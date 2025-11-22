@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tạo Sản Phẩm - Product Creation Test</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .config-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section {
+            background: white;
+            margin: 20px 0;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+        .tags-input {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: #e3f2fd;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+        }
+        .tag-remove {
+            cursor: pointer;
+            color: #f44336;
+            font-weight: bold;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        button.secondary {
+            background-color: #2196F3;
+        }
+        button.secondary:hover {
+            background-color: #1976D2;
+        }
+        button.danger {
+            background-color: #f44336;
+        }
+        button.danger:hover {
+            background-color: #d32f2f;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .error {
+            color: #f44336;
+        }
+        .info {
+            color: #2196F3;
+        }
+        .warning {
+            color: #ff9800;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            padding: 0;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background: #e0e0e0;
+            margin: 0 5px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .step.active {
+            background: #4CAF50;
+            color: white;
+        }
+        .step.completed {
+            background: #81C784;
+            color: white;
+        }
+        .variant-attributes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .variant-attribute {
+            display: flex;
+            gap: 10px;
+        }
+        .variant-attribute input {
+            flex: 1;
+        }
+        .load-data-btn {
+            background-color: #9E9E9E;
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+        .load-data-btn:hover {
+            background-color: #757575;
+        }
+        .data-list {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .data-item {
+            padding: 5px;
+            margin: 3px 0;
+            background: white;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .data-item:hover {
+            background: #e3f2fd;
+        }
+        .quick-fill {
+            font-size: 11px;
+            color: #666;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-left: 10px;
+        }
+        .quick-fill:hover {
+            color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Tạo Sản Phẩm - Product Creation Test</h1>
+    
+    <div class="config-section">
+        <h2>⚙️ Cấu Hình</h2>
+        <div class="form-group">
+            <label>API Base URL:</label>
+            <input type="text" id="apiBase" value="http://localhost:8080" style="width: 100%;">
+        </div>
+    </div>
+
+    <div class="step-indicator">
+        <div class="step active" id="step1-indicator">1. Category</div>
+        <div class="step" id="step2-indicator">2. Product Type</div>
+        <div class="step" id="step3-indicator">3. Product</div>
+        <div class="step" id="step4-indicator">4. Variant</div>
+    </div>
+
+    <!-- Section 1: Create Category -->
+    <div class="section" id="section-category">
+        <h2>1. 📁 Tạo Category</h2>
+        <div class="form-group">
+            <label>Category ID <span style="color: red;">*</span>:</label>
+            <input type="text" id="categoryId" placeholder="CAT001">
+        </div>
+        <div class="form-group">
+            <label>Category Name <span style="color: red;">*</span>:</label>
+            <input type="text" id="categoryName" placeholder="Áo Nam">
+        </div>
+        <div class="form-group">
+            <label>Parent Category ID (optional):</label>
+            <input type="text" id="parentCategoryId" placeholder="CAT001">
+        </div>
+        <div class="form-group">
+            <label>Category Level:</label>
+            <input type="number" id="categoryLevel" value="1" min="1" max="5">
+        </div>
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="categoryIsActive" checked>
+                <label for="categoryIsActive" style="display: inline; font-weight: normal;">Is Active</label>
+            </div>
+        </div>
+        <button onclick="createCategory()">Tạo Category</button>
+        <button class="secondary" onclick="loadCategories()">Load Danh Sách Categories</button>
+        <div id="categoriesList" class="data-list" style="display: none;"></div>
+    </div>
+
+    <!-- Section 2: Create Product Type -->
+    <div class="section" id="section-type">
+        <h2>2. 🏷️ Tạo Product Type</h2>
+        <div class="form-group">
+            <label>Type ID <span style="color: red;">*</span>:</label>
+            <input type="text" id="typeId" placeholder="TYPE001">
+        </div>
+        <div class="form-group">
+            <label>Type Name <span style="color: red;">*</span>:</label>
+            <input type="text" id="typeName" placeholder="Physical">
+        </div>
+        <div class="form-group">
+            <label>Type Description (optional):</label>
+            <textarea id="typeDescription" placeholder="Sản phẩm vật lý, có thể cầm nắm, vận chuyển được"></textarea>
+        </div>
+        <button onclick="createProductType()">Tạo Product Type</button>
+        <button class="secondary" onclick="loadProductTypes()">Load Danh Sách Types</button>
+        <div id="typesList" class="data-list" style="display: none;"></div>
+    </div>
+
+    <!-- Section 3: Create Product -->
+    <div class="section" id="section-product">
+        <h2>3. 📦 Tạo Product</h2>
+        <div class="form-group">
+            <label>Product ID <span style="color: red;">*</span>:</label>
+            <input type="text" id="productId" placeholder="PROD001">
+            <span class="quick-fill" onclick="fillProductId()">Tự động tạo ID</span>
+        </div>
+        <div class="form-group">
+            <label>Product Name <span style="color: red;">*</span>:</label>
+            <input type="text" id="productName" placeholder="Áo Thun Nam Cổ Tròn Basic">
+        </div>
+        <div class="form-group">
+            <label>Description (optional):</label>
+            <textarea id="productDescription" placeholder="Áo thun nam chất liệu cotton 100%, mềm mại, thoáng mát"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Price <span style="color: red;">*</span>:</label>
+            <input type="number" id="productPrice" placeholder="199000" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+            <label>Category ID:</label>
+            <input type="text" id="productCategoryId" placeholder="CAT001">
+            <button class="load-data-btn" onclick="loadCategoriesForProduct()">Load Categories</button>
+            <div id="categoriesForProduct" class="data-list" style="display: none;"></div>
+        </div>
+        <div class="form-group">
+            <label>Type ID:</label>
+            <input type="text" id="productTypeId" placeholder="TYPE001">
+            <button class="load-data-btn" onclick="loadTypesForProduct()">Load Types</button>
+            <div id="typesForProduct" class="data-list" style="display: none;"></div>
+        </div>
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="productIsPreorder">
+                <label for="productIsPreorder" style="display: inline; font-weight: normal;">Is Preorder</label>
+            </div>
+        </div>
+        <div class="form-group" id="preorderDaysGroup" style="display: none;">
+            <label>Preorder Days:</label>
+            <input type="number" id="productPreorderDays" placeholder="7" min="1">
+        </div>
+        <div class="form-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="productIsActive" checked>
+                <label for="productIsActive" style="display: inline; font-weight: normal;">Is Active</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Tags (nhấn Enter để thêm):</label>
+            <input type="text" id="tagInput" placeholder="Nhập tag và nhấn Enter">
+            <div id="tagsContainer" class="tags-input" style="margin-top: 10px;"></div>
+        </div>
+        <button onclick="createProduct()">Tạo Product</button>
+        <button class="secondary" onclick="loadProducts()">Load Danh Sách Products</button>
+        <div id="productsList" class="data-list" style="display: none;"></div>
+    </div>
+
+    <!-- Section 4: Create Product Variant -->
+    <div class="section" id="section-variant">
+        <h2>4. 🎨 Tạo Product Variant</h2>
+        <div class="form-group">
+            <label>Product ID <span style="color: red;">*</span>:</label>
+            <input type="text" id="variantProductId" placeholder="PROD001">
+            <button class="load-data-btn" onclick="loadProductsForVariant()">Load Products</button>
+            <div id="productsForVariant" class="data-list" style="display: none;"></div>
+        </div>
+        <div class="form-group">
+            <label>Variant ID <span style="color: red;">*</span>:</label>
+            <input type="text" id="variantId" placeholder="VAR001">
+            <span class="quick-fill" onclick="fillVariantId()">Tự động tạo ID</span>
+        </div>
+        <div class="form-group">
+            <label>Variant Attributes (ví dụ: color, size):</label>
+            <div id="variantAttributesContainer">
+                <div class="variant-attribute">
+                    <input type="text" placeholder="Key (ví dụ: color)" class="attr-key">
+                    <input type="text" placeholder="Value (ví dụ: Trắng)" class="attr-value">
+                </div>
+            </div>
+            <button class="load-data-btn" onclick="addVariantAttribute()" style="margin-top: 10px;">+ Thêm Attribute</button>
+        </div>
+        <div class="form-group">
+            <label>Variant Price (optional, để trống sẽ dùng giá product):</label>
+            <input type="number" id="variantPrice" placeholder="199000" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+            <label>SKU (optional):</label>
+            <input type="text" id="variantSku" placeholder="PROD001-WHITE-M">
+        </div>
+        <div class="form-group">
+            <label>Barcode (optional):</label>
+            <input type="text" id="variantBarcode" placeholder="8931234567890">
+        </div>
+        <button onclick="createVariant()">Tạo Variant</button>
+        <button class="secondary" onclick="loadVariants()">Load Danh Sách Variants</button>
+        <div id="variantsList" class="data-list" style="display: none;"></div>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        let tags = [];
+        let apiBase = 'http://localhost:8080';
+
+        // Update API base when input changes
+        document.getElementById('apiBase').addEventListener('change', function() {
+            apiBase = this.value;
+            log(`🔧 API Base URL đã được cập nhật: ${apiBase}`, 'info');
+        });
+
+        // Preorder days toggle
+        document.getElementById('productIsPreorder').addEventListener('change', function() {
+            document.getElementById('preorderDaysGroup').style.display = this.checked ? 'block' : 'none';
+        });
+
+        // Tag input handler
+        document.getElementById('tagInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const tag = this.value.trim();
+                if (tag && !tags.includes(tag)) {
+                    tags.push(tag);
+                    updateTagsDisplay();
+                    this.value = '';
+                }
+            }
+        });
+
+        function updateTagsDisplay() {
+            const container = document.getElementById('tagsContainer');
+            container.innerHTML = tags.map(tag => 
+                `<span class="tag">${tag} <span class="tag-remove" onclick="removeTag('${tag}')">×</span></span>`
+            ).join('');
+        }
+
+        function removeTag(tag) {
+            tags = tags.filter(t => t !== tag);
+            updateTagsDisplay();
+        }
+
+        function addVariantAttribute() {
+            const container = document.getElementById('variantAttributesContainer');
+            const div = document.createElement('div');
+            div.className = 'variant-attribute';
+            div.innerHTML = `
+                <input type="text" placeholder="Key (ví dụ: color)" class="attr-key">
+                <input type="text" placeholder="Value (ví dụ: Trắng)" class="attr-value">
+                <button class="danger" onclick="this.parentElement.remove()" style="padding: 5px 10px; font-size: 12px;">Xóa</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function log(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : type === 'warning' ? 'warning' : 'info';
+            resultDiv.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            resultDiv.scrollTop = resultDiv.scrollHeight;
+        }
+
+        function clearResult() {
+            document.getElementById('result').innerHTML = '';
+        }
+
+        function fillProductId() {
+            document.getElementById('productId').value = 'PROD' + String(Date.now()).slice(-6);
+            log('✅ Đã tự động tạo Product ID', 'success');
+        }
+
+        function fillVariantId() {
+            document.getElementById('variantId').value = 'VAR' + String(Date.now()).slice(-6);
+            log('✅ Đã tự động tạo Variant ID', 'success');
+        }
+
+        // ========== CATEGORY FUNCTIONS ==========
+        async function createCategory() {
+            const categoryId = document.getElementById('categoryId').value.trim();
+            const categoryName = document.getElementById('categoryName').value.trim();
+            const parentCategoryId = document.getElementById('parentCategoryId').value.trim();
+            const categoryLevel = parseInt(document.getElementById('categoryLevel').value) || 1;
+            const isActive = document.getElementById('categoryIsActive').checked;
+
+            if (!categoryId || !categoryName) {
+                log('❌ Vui lòng nhập Category ID và Category Name', 'error');
+                return;
+            }
+
+            log(`📤 Đang tạo Category: ${categoryId}...`, 'info');
+
+            try {
+                const response = await fetch(`${apiBase}/api/categories`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        categoryId: categoryId,
+                        categoryName: categoryName,
+                        parentCategoryId: parentCategoryId || null,
+                        categoryLevel: categoryLevel,
+                        isActive: isActive
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Tạo Category thành công!`, 'success');
+                    log(`   Category ID: ${data.categoryId}`, 'info');
+                    log(`   Category Name: ${data.categoryName}`, 'info');
+                    log(`   Category Level: ${data.categoryLevel}`, 'info');
+                    updateStepIndicator(1, true);
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`Failed: ${response.status} - ${errorText}`);
+                }
+            } catch (error) {
+                log(`❌ Lỗi: ${error.message}`, 'error');
+            }
+        }
+
+        async function loadCategories() {
+            const listDiv = document.getElementById('categoriesList');
+            log('📥 Đang load danh sách categories...', 'info');
+
+            try {
+                const response = await fetch(`${apiBase}/api/categories`);
+                if (response.ok) {
+                    const categories = await response.json();
+                    listDiv.innerHTML = categories.map(cat => 
+                        `<div class="data-item" onclick="selectCategory('${cat.categoryId}', '${cat.categoryName}')">
+                            <strong>${cat.categoryId}</strong> - ${cat.categoryName} (Level: ${cat.categoryLevel})
+                        </div>`
+                    ).join('');
+                    listDiv.style.display = 'block';
+                    log(`✅ Đã load ${categories.length} categories`, 'success');
+                } else {
+                    throw new Error(`Failed: ${response.status}`);
+                }
+            } catch (error) {
+                log(`❌ Lỗi: ${error.message}`, 'error');
+            }
+        }
+
+        function selectCategory(categoryId, categoryName) {
+            document.getElementById('categoryId').value = categoryId;
+            document.getElementById('categoryName').value = categoryName;
+            document.getElementById('categoriesList').style.display = 'none';
+        }
+
+        function loadCategoriesForProduct() {
+            const listDiv = document.getElementById('categoriesForProduct');
+            loadCategories();
+            listDiv.innerHTML = document.getElementById('categoriesList').innerHTML;
+            listDiv.style.display = 'block';
+            document.getElementById('categoriesList').style.display = 'none';
+        }
+
+        // ========== PRODUCT TYPE FUNCTIONS ==========
+        async function createProductType() {
+            const typeId = document.getElementById('typeId').value.trim();
+            const typeName = document.getElementById('typeName').value.trim();
+            const typeDescription = document.getElementById('typeDescription').value.trim();
+
+            if (!typeId || !typeName) {
+                log('❌ Vui lòng nhập Type ID và Type Name', 'error');
+                return;
+            }
+
+            log(`📤 Đang tạo Product Type: ${typeId}...`, 'info');
+
+            try {
+                const response = await fetch(`${apiBase}/api/product-types`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        typeId: typeId,
+                        typeName: typeName,
+                        typeDescription: typeDescription || null
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Tạo Product Type thành công!`, 'success');
+                    log(`   Type ID: ${data.typeId}`, 'info');
+                    log(`   Type Name: ${data.typeName}`, 'info');
+                    updateStepIndicator(2, true);
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`Failed: ${response.status} - ${errorText}`);
+                }
+            } catch (error) {
+                log(`❌ Lỗi: ${error.message}`, 'error');
+            }
+        }
+
+        async function loadProductTypes() {
+            const listDiv = document.getElementById('typesList');
+            log('📥 Đang load danh sách product types...', 'info');
+
+            try {
+                const response = await fetch(`${apiBase}/api/product-types`);
+                if (response.ok) {
+                    const types = await response.json();
+                    listDiv.innerHTML = types.map(type => 
+                        `<div class="data-item" onclick="selectType('${type.typeId}', '${type.typeName}')">
+                            <strong>${type.typeId}</strong> - ${type.typeName}
+                        </div>`
+                    ).join('');
+                    listDiv.style.display = 'block';
+                    log(`✅ Đã load ${types.length} product types`, 'success');
+                } else {
+                    throw new Error(`Failed: ${response.status}`);
+                }
+            } catch (error) {
+                log(`❌ Lỗi: ${error.message}`, 'error');
+            }
+        }
+
+        function selectType(typeId, typeName) {
+            document.getElementById('typeId').value = typeId;
+            document.getElementById('typeName').value = typeName;
+            document.getElementById('typesList').style.display = 'none';
+        }
+
+        function loadTypesForProduct() {
+            const listDiv = document.getElementById('typesForProduct');
+            loadProductTypes();
+            setTimeout(() => {
+                listDiv.innerHTML = document.getElementById('typesList').innerHTML;
+                listDiv.style.display = 'block';
+                document.getElementById('typesList').style.display = 'none';
+            }, 500);
+        }
+
+        // ========== PRODUCT FUNCTIONS ==========
+        async function createProduct() {
+            const productId = document.getElementById('productId').value.trim();
+            const name = document.getElementById('productName').value.trim();
+            const description = document.getElementById('productDescription').value.trim();
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const categoryId = document.getElementById('productCategoryId').value.trim();
+            const typeId = document.getElementById('productTypeId').value.trim();
+            const isPreorder = document.getElementById('productIsPreorder').checked;
+            const preorderDays = isPreorder ? parseInt(document.getElementById('productPreorderDays').value) : null;
+            const isActive = document.getElementById('productIsActive').checked;
+
+            if (!productId || !name || !price || isNaN(price)) {
+                log('❌ Vui lòng nhập đầy đủ Product ID, Name và Price', 'error');
+                return;
+            }
+
+            log(`📤 Đang tạo Product: ${productId}...`, 'info');
+
+            const productData = {
+                productId: productId,
+                name: name,
+                price: price,
+                isActive: isActive
+            };
+
+            if (description) productData.description = description;
+            if (categoryId) productData.categoryId = categoryId;
+            if (typeId) productData.typeId = typeId;
+            if (isPreorder) {
+                productData.isPreorder = true;
+                if (preorderDays) productData.preorderDays = preorderDays;
+            }
+            if (tags.length > 0) productData.tags = tags;
+
+            try {
+                const response = await fetch(`${apiBase}/api/products`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Tạo Product thành công!`, 'success');
+                    log(`   Product ID: ${data.productId}`, 'info');
+                    log(`   Name: ${data.name}`, 'info');
+                    log(`   Price: ${data.price}`, 'info');
+                    if (data.categoryId) log(`   Category ID: ${data.categoryId}`, 'info');
+                    if (data.typeId) log(`   Type ID: ${data.typeId}`, 'info');
+                    updateStepIndicator(3, true);
+                    // Auto-fill variant product ID
+                    document.getElementById('variantProductId').value = productId;
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`Failed: ${response.status} - ${errorText}`);
+                }
+            } catch (error) {
+                log(`❌ Lỗi: ${error.message}`, 'error');
+            }
+        }
+
+        async function loadProducts() {
+            const listDiv = document.getElementById('productsList');
+            log('📥 Đang load danh sách products...', 'info');
+
+            try {
+                const response = await fetch(`${apiBase}/api/products`);
+                if (response.ok) {
+                    const products = await response.json();
+                    listDiv.innerHTML = products.map(prod => 
+                        `<div class="data-item" onclick="selectProduct('${prod.productId}', '${prod.name}')">
+                            <strong>${prod.productId}</strong> - ${prod.name} (${prod.price} VNĐ)
+                        </div>`
+                    ).join('');
+                    listDiv.style.display = 'block';
+                    log(`✅ Đã load ${products.length} products`, 'success');
+                } else {
+                    throw new Error(`Failed: ${response.status}`);
+                }
+            } catch (error) {
+                log(`❌ Lỗi: ${error.message}`, 'error');
+            }
+        }
+
+        function selectProduct(productId, productName) {
+            document.getElementById('productId').value = productId;
+            document.getElementById('productName').value = productName;
+            document.getElementById('productsList').style.display = 'none';
+        }
+
+        function loadProductsForVariant() {
+            const listDiv = document.getElementById('productsForVariant');
+            loadProducts();
+            setTimeout(() => {
+                listDiv.innerHTML = document.getElementById('productsList').innerHTML;
+                listDiv.style.display = 'block';
+                document.getElementById('productsList').style.display = 'none';
+            }, 500);
+        }
+
+        // ========== VARIANT FUNCTIONS ==========
+        async function createVariant() {
+            const productId = document.getElementById('variantProductId').value.trim();
+            const variantId = document.getElementById('variantId').value.trim();
+            const variantPrice = document.getElementById('variantPrice').value.trim();
+            const sku = document.getElementById('variantSku').value.trim();
+            const barcode = document.getElementById('variantBarcode').value.trim();
+
+            if (!productId || !variantId) {
+                log('❌ Vui lòng nhập Product ID và Variant ID', 'error');
+                return;
+            }
+
+            // Collect variant attributes
+            const variantAttributes = {};
+            const attrInputs = document.querySelectorAll('#variantAttributesContainer .variant-attribute');
+            attrInputs.forEach(attrDiv => {
+                const key = attrDiv.querySelector('.attr-key').value.trim();
+                const value = attrDiv.querySelector('.attr-value').value.trim();
+                if (key && value) {
+                    variantAttributes[key] = value;
+                }
+            });
+
+            log(`📤 Đang tạo Variant: ${variantId} cho Product: ${productId}...`, 'info');
+
+            const variantData = {
+                variantId: variantId,
+                variantAttributes: variantAttributes
+            };
+
+            if (variantPrice) variantData.variantPrice = parseFloat(variantPrice);
+            if (sku) variantData.sku = sku;
+            if (barcode) variantData.barcode = barcode;
+
+            try {
+                const response = await fetch(`${apiBase}/api/products/${encodeURIComponent(productId)}/variants`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(variantData)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`✅ Tạo Variant thành công!`, 'success');
+                    log(`   Product ID: ${data.productId}`, 'info');
+                    log(`   Variant ID: ${data.variantId}`, 'info');
+                    log(`   Variant Attributes: ${JSON.stringify(data.variantAttributes)}`, 'info');
+                    if (data.sku) log(`   SKU: ${data.sku}`, 'info');
+                    updateStepIndicator(4, true);
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`Failed: ${response.status} - ${errorText}`);
+                }
+            } catch (error) {
+                log(`❌ Lỗi: ${error.message}`, 'error');
+            }
+        }
+
+        async function loadVariants() {
+            const productId = document.getElementById('variantProductId').value.trim();
+            if (!productId) {
+                log('❌ Vui lòng nhập Product ID trước', 'error');
+                return;
+            }
+
+            const listDiv = document.getElementById('variantsList');
+            log(`📥 Đang load danh sách variants cho Product: ${productId}...`, 'info');
+
+            try {
+                const response = await fetch(`${apiBase}/api/products/${encodeURIComponent(productId)}/variants`);
+                if (response.ok) {
+                    const variants = await response.json();
+                    listDiv.innerHTML = variants.map(variant => 
+                        `<div class="data-item" onclick="selectVariant('${variant.variantId}')">
+                            <strong>${variant.variantId}</strong> - ${JSON.stringify(variant.variantAttributes)} ${variant.sku ? `(SKU: ${variant.sku})` : ''}
+                        </div>`
+                    ).join('');
+                    listDiv.style.display = 'block';
+                    log(`✅ Đã load ${variants.length} variants`, 'success');
+                } else {
+                    throw new Error(`Failed: ${response.status}`);
+                }
+            } catch (error) {
+                log(`❌ Lỗi: ${error.message}`, 'error');
+            }
+        }
+
+        function selectVariant(variantId) {
+            document.getElementById('variantId').value = variantId;
+            document.getElementById('variantsList').style.display = 'none';
+        }
+
+        function updateStepIndicator(step, completed) {
+            for (let i = 1; i <= 4; i++) {
+                const indicator = document.getElementById(`step${i}-indicator`);
+                if (i < step) {
+                    indicator.className = 'step completed';
+                } else if (i === step && completed) {
+                    indicator.className = 'step completed';
+                } else if (i === step) {
+                    indicator.className = 'step active';
+                } else {
+                    indicator.className = 'step';
+                }
+            }
+        }
+
+        // Initialize
+        apiBase = document.getElementById('apiBase').value;
+    </script>
+</body>
+</html>
+
